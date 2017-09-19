@@ -7,7 +7,7 @@
 
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        1.2.17
-Release:        15.14%{?dist}
+Release:        15.15%{?dist}
 Epoch:          0
 Summary:        Java logging package
 BuildArch:      noarch
@@ -27,6 +27,7 @@ Patch2:         0009-Fix-tests.patch
 Patch3:         0010-Fix-javadoc-link.patch
 Patch4:         0011-Remove-openejb.patch
 Patch5:         0012-Add-proper-bundle-symbolicname.patch
+Patch6:         0001-Backport-fix-for-CVE-2017-5645.patch
 
 BuildRequires:  perl
 BuildRequires:  %{?scl_prefix}maven-local
@@ -65,6 +66,7 @@ set -e -x
 %patch3 -p1 -b .xlink-javadoc
 %patch4 -p1 -b .openejb
 %patch5 -p1 -b .bundlename
+%patch6 -p1 -b .cve
 %pom_remove_plugin :maven-site-plugin
 
 sed -i "s|groupId>ant<|groupId>org.apache.ant<|g" pom.xml
@@ -142,6 +144,9 @@ contribs/KitchingSimon/udpserver.pl
 
 
 %changelog
+* Fri Jun 02 2017 Michael Simacek <msimacek@redhat.com> - 0:1.2.17-15.15
+- Backport fix for CVE-2017-5645
+
 * Tue Jan 13 2015 Michael Simacek <msimacek@redhat.com> - 0:1.2.17-15.14
 - Mass rebuild 2015-01-13
 
